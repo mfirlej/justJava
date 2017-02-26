@@ -9,6 +9,8 @@
     android:paddingLeft="16dp"
     android:paddingRight="16dp"
     android:paddingTop="16dp"
+    android:background="#827717"
+
     tools:context="com.example.michal.justjava.MainActivity">
 
     <TextView
@@ -26,9 +28,9 @@
         <Button
             android:layout_width="48dp"
             android:layout_height="48dp"
+            android:elevation="0dp"
             android:onClick="decrementQuantity"
-            android:text="-"
-            android:elevation="0dp" />
+            android:text="-" />
 
         <TextView
             android:id="@+id/quantity_text_view"
@@ -43,9 +45,9 @@
         <Button
             android:layout_width="48dp"
             android:layout_height="48dp"
+            android:elevation="0dp"
             android:onClick="incrementQuantity"
-            android:text="+"
-            android:elevation="0dp" />
+            android:text="+" />
 
     </LinearLayout>
 
