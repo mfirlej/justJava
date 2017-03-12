@@ -7,7 +7,8 @@ import android.widget.TextView;
 
 import java.text.NumberFormat;
 
-import static android.R.attr.name;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 
 /**
@@ -23,32 +24,37 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
     }
 
     public void incrementQuantity(View view) {
 
         quantity = quantity + 1;
-        displayQuantity(quantity);
+        //displayQuantity(quantity);
+        quantityTextView.setText("" + quantity);
     }
 
     public void decrementQuantity(View view) {
 
         quantity = quantity - 1;
         if (quantity < 0) quantity = 0;
-        displayQuantity(quantity);
+        //displayQuantity(quantity);
+        quantityTextView.setText("" + quantity);
     }
 
     public void incrementItemPrice(View view) {
 
         itemPrice = itemPrice + 1;
-        displayItemPrice(itemPrice);
+        itemPriceTextView.setText("" + itemPrice);
+        //displayItemPrice(itemPrice);
     }
 
     public void decrementItemPrice(View view) {
 
         itemPrice = itemPrice - 1;
         if (itemPrice <= 0) itemPrice = 0;
-        displayItemPrice(itemPrice);
+        itemPriceTextView.setText("" + itemPrice);
+        //displayItemPrice(itemPrice);
     }
 
 
@@ -58,7 +64,8 @@ public class MainActivity extends AppCompatActivity {
     public void submitOrder(View view) {
 
         int price = calculatePrice();
-        displayMessage(createOrderSummary(price));
+        priceTextView.setText(createOrderSummary(price));
+        //displayMessage(createOrderSummary(price));
 
     }
 
@@ -68,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private String createOrderSummary(int price) {
-        String priceMessage = "\nName: Kapitan Kunal";
+        String priceMessage = "Name: Kapitan Kunal";
         priceMessage += "\nQuantity: " + quantity;
         priceMessage += "\nTotal " + price + " zł";
         priceMessage += "\nThank you";
@@ -81,15 +88,24 @@ public class MainActivity extends AppCompatActivity {
     /**
      * This method displays the given quantity value on the screen.
      */
+
+    @BindView(R.id.quantity_text_view)
+    TextView quantityTextView;
+
+    /*
     private void displayQuantity(int number) {
         TextView quantityTextView = (TextView) findViewById(R.id.quantity_text_view);
         quantityTextView.setText("" + number);
-    }
+    }*/
 
+    @BindView(R.id.itemPrice_text_view)
+    TextView itemPriceTextView;
+
+    /*
     private void displayItemPrice(int number) {
         TextView itemPriceTextView = (TextView) findViewById(R.id.itemPrice_text_view);
         itemPriceTextView.setText("" + number);
-    }
+    }*/
 
     /**
      * This method displays the given price on the screen.
@@ -102,11 +118,15 @@ public class MainActivity extends AppCompatActivity {
     /**
      * This method displays the given text on the screen.
      */
+    @BindView(R.id.price_text_view)
+    TextView priceTextView;
+
+    /*
+
     private void displayMessage(String message) {
         TextView priceTextView = (TextView) findViewById(R.id.price_text_view);
         priceTextView.setText(message);
-
     }
-
+    */
 
 }
