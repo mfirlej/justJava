@@ -7,6 +7,8 @@ import android.widget.TextView;
 
 import java.text.NumberFormat;
 
+import static android.R.attr.name;
+
 
 /**
  * This app displays an order form to order coffee.
@@ -54,10 +56,29 @@ public class MainActivity extends AppCompatActivity {
      * This method is called when the order button is clicked.
      */
     public void submitOrder(View view) {
-        String priceMessage = "Nie ma nic za darmo ! Płacisz " + (itemPrice * quantity) + " za " + quantity + " coffee cups.";
-        priceMessage = priceMessage + "\nThanks for visiting us!";
+
+        int price = calculatePrice();
+        String priceMessage = createOrderSummary(price);
+
         displayMessage(priceMessage);
+
     }
+
+    private int calculatePrice() {
+        int price = quantity * itemPrice;
+        return price;
+    }
+
+    private String createOrderSummary(int price) {
+        String priceMessage = "\nName: Kapitan Kunal";
+        priceMessage = priceMessage + "\nQuantity: " + quantity;
+        priceMessage = priceMessage + "\nTotal " + price + " zł";
+        priceMessage = priceMessage + "\nThank you";
+
+        return priceMessage;
+
+    }
+
 
     /**
      * This method displays the given quantity value on the screen.
@@ -88,4 +109,6 @@ public class MainActivity extends AppCompatActivity {
         priceTextView.setText(message);
 
     }
+
+
 }
