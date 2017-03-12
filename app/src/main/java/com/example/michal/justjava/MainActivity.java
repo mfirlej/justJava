@@ -58,22 +58,20 @@ public class MainActivity extends AppCompatActivity {
     public void submitOrder(View view) {
 
         int price = calculatePrice();
-        String priceMessage = createOrderSummary(price);
-
-        displayMessage(priceMessage);
+        displayMessage(createOrderSummary(price));
 
     }
 
     private int calculatePrice() {
-        int price = quantity * itemPrice;
-        return price;
+        return quantity * itemPrice;
+
     }
 
     private String createOrderSummary(int price) {
         String priceMessage = "\nName: Kapitan Kunal";
-        priceMessage = priceMessage + "\nQuantity: " + quantity;
-        priceMessage = priceMessage + "\nTotal " + price + " zł";
-        priceMessage = priceMessage + "\nThank you";
+        priceMessage += "\nQuantity: " + quantity;
+        priceMessage += "\nTotal " + price + " zł";
+        priceMessage += "\nThank you";
 
         return priceMessage;
 
