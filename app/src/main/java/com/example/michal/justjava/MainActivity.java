@@ -2,13 +2,18 @@ package com.example.michal.justjava;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
+import android.widget.CheckBox;
 import android.widget.TextView;
 
 import java.text.NumberFormat;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static android.R.attr.max;
+import static android.R.attr.maxLines;
 
 
 /**
@@ -25,6 +30,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
+
     }
 
     public void incrementQuantity(View view) {
@@ -46,7 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
         itemPrice = itemPrice + 1;
         itemPriceTextView.setText("" + itemPrice);
-        //displayItemPrice(itemPrice);
+       // displayItemPrice(itemPrice);
     }
 
     public void decrementItemPrice(View view) {
@@ -64,8 +70,9 @@ public class MainActivity extends AppCompatActivity {
     public void submitOrder(View view) {
 
         int price = calculatePrice();
-        priceTextView.setText(createOrderSummary(price));
+        orderSummaryTextView.setText(createOrderSummary(price));
         //displayMessage(createOrderSummary(price));
+        Log.v("Main activity", "Zrzut z loga z wybraa opcja kawy  " + addWhippedCream);
 
     }
 
@@ -74,8 +81,33 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
+
+    boolean addWhippedCream = false;
+
+    public void checkWhippedCream (View view) {
+
+
+
+        boolean checked = ((CheckBox) view).isChecked();
+
+                if (checked) {
+                     addWhippedCream = true;
+                    Log.v("Main activity", "Dodanie smietanki do kawy - true" + addWhippedCream);
+                }
+                else
+                {
+                     addWhippedCream = false;
+                    Log.v("Main activity", "Dodanie smietanki do kawy - false" + addWhippedCream);
+                }
+
+
+
+
+    }
+
     private String createOrderSummary(int price) {
         String priceMessage = "Name: Kapitan Kunal";
+        priceMessage += "\nAdd whipped cream? " + " - " +addWhippedCream;
         priceMessage += "\nQuantity: " + quantity;
         priceMessage += "\nTotal " + price + " zł";
         priceMessage += "\nThank you";
@@ -101,32 +133,37 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.itemPrice_text_view)
     TextView itemPriceTextView;
 
-    /*
+
     private void displayItemPrice(int number) {
         TextView itemPriceTextView = (TextView) findViewById(R.id.itemPrice_text_view);
         itemPriceTextView.setText("" + number);
-    }*/
+    }
+
 
     /**
      * This method displays the given price on the screen.
      */
     private void displayTotalPrice(int number) {
-        TextView priceTextView = (TextView) findViewById(R.id.price_text_view);
+        TextView priceTextView = (TextView) findViewById(R.id.order_summary_text_view);
         priceTextView.setText(NumberFormat.getCurrencyInstance().format(number));
     }
 
     /**
      * This method displays the given text on the screen.
      */
-    @BindView(R.id.price_text_view)
-    TextView priceTextView;
+    @BindView(R.id.order_summary_text_view)
+    TextView orderSummaryTextView;
 
-    /*
+
+
+/*
 
     private void displayMessage(String message) {
-        TextView priceTextView = (TextView) findViewById(R.id.price_text_view);
-        priceTextView.setText(message);
+        TextView orderSummaryTextView = (TextView) findViewById(R.id.price_text_view);
+        orderSummaryTextView.setVisibility(message);
     }
+
     */
+
 
 }
