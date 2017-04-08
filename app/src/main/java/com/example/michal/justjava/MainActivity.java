@@ -12,8 +12,6 @@ import java.text.NumberFormat;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static android.R.attr.max;
-import static android.R.attr.maxLines;
 
 
 /**
@@ -52,7 +50,7 @@ public class MainActivity extends AppCompatActivity {
 
         itemPrice = itemPrice + 1;
         itemPriceTextView.setText("" + itemPrice);
-       // displayItemPrice(itemPrice);
+        // displayItemPrice(itemPrice);
     }
 
     public void decrementItemPrice(View view) {
@@ -69,10 +67,13 @@ public class MainActivity extends AppCompatActivity {
      */
     public void submitOrder(View view) {
 
+        CheckBox checkBox = (CheckBox) findViewById(R.id.checkbox_cream);
+       boolean hasWhippedCream = checkBox.isChecked();
+
         int price = calculatePrice();
-        orderSummaryTextView.setText(createOrderSummary(price));
+        orderSummaryTextView.setText(createOrderSummary(price, hasWhippedCream));
         //displayMessage(createOrderSummary(price));
-        Log.v("Main activity", "Zrzut z loga z wybraa opcja kawy  " + addWhippedCream);
+        Log.v("Main activity", "Zrzut z loga z wybraa opcja kawy  " + hasWhippedCream);
 
     }
 
@@ -82,32 +83,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    boolean addWhippedCream = false;
-
-    public void checkWhippedCream (View view) {
-
-
-
-        boolean checked = ((CheckBox) view).isChecked();
-
-                if (checked) {
-                     addWhippedCream = true;
-                    Log.v("Main activity", "Dodanie smietanki do kawy - true" + addWhippedCream);
-                }
-                else
-                {
-                     addWhippedCream = false;
-                    Log.v("Main activity", "Dodanie smietanki do kawy - false" + addWhippedCream);
-                }
-
-
-
-
-    }
-
-    private String createOrderSummary(int price) {
+    private String createOrderSummary(int price, boolean checkWhippedCream) {
         String priceMessage = "Name: Kapitan Kunal";
-        priceMessage += "\nAdd whipped cream? " + " - " +addWhippedCream;
+        priceMessage += "\nAdd whipped cream? " + " - " + checkWhippedCream;
         priceMessage += "\nQuantity: " + quantity;
         priceMessage += "\nTotal " + price + " zł";
         priceMessage += "\nThank you";
