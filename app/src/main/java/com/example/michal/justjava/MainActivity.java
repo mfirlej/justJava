@@ -13,7 +13,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-
 /**
  * This app displays an order form to order coffee.
  */
@@ -67,20 +66,24 @@ public class MainActivity extends AppCompatActivity {
      */
     public void submitOrder(View view) {
 
-        CheckBox checkBox1= (CheckBox) findViewById(R.id.checkbox_cream);
-       boolean hasWhippedCream = checkBox1.isChecked();
+        CheckBox checkBox1 = (CheckBox) findViewById(R.id.checkbox_cream);
+        boolean hasWhippedCream = checkBox1.isChecked();
 
         CheckBox checkBox2 = (CheckBox) findViewById(R.id.checkbox_chocolate);
-        String hasChocolate = checkBox2.isChecked();
+       // boolean hasChocolate = checkBox2.isChecked();
+        String addChocolate;
         if (checkBox2.isChecked()) {
+            addChocolate = "yes";
 
+        } else {
+            addChocolate = "no";
         }
 
         int price = calculatePrice();
-        orderSummaryTextView.setText(createOrderSummary(price, hasWhippedCream, hasChocolate));
+        orderSummaryTextView.setText(createOrderSummary(price, hasWhippedCream, addChocolate));
         //displayMessage(createOrderSummary(price));
         Log.v("Main activity", "Zrzut z loga z wybraną opcja kawy  " + hasWhippedCream);
-        Log.v("Main activity", "Zrzut z loga z wybraną opcja czekolada  " + hasChocolate);
+        Log.v("Main activity", "Zrzut z loga z wybraną opcja czekolada  " + addChocolate);
 
     }
 
@@ -93,7 +96,7 @@ public class MainActivity extends AppCompatActivity {
     private String createOrderSummary(int price, boolean checkWhippedCream, String checkChocolate) {
         String priceMessage = "Name: Kapitan Kunal";
         priceMessage += "\nAdd whipped cream? " + " - " + checkWhippedCream;
-        priceMessage += "\nAdd whipped cream? " + " - " + checkChocolate;
+        priceMessage += "\nAdd chocolate? " + " - " + checkChocolate;
         priceMessage += "\nQuantity: " + quantity;
         priceMessage += "\nTotal " + price + " zł";
         priceMessage += "\nThank you";
