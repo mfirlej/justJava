@@ -67,13 +67,20 @@ public class MainActivity extends AppCompatActivity {
      */
     public void submitOrder(View view) {
 
-        CheckBox checkBox = (CheckBox) findViewById(R.id.checkbox_cream);
-       boolean hasWhippedCream = checkBox.isChecked();
+        CheckBox checkBox1= (CheckBox) findViewById(R.id.checkbox_cream);
+       boolean hasWhippedCream = checkBox1.isChecked();
+
+        CheckBox checkBox2 = (CheckBox) findViewById(R.id.checkbox_chocolate);
+        String hasChocolate = checkBox2.isChecked();
+        if (checkBox2.isChecked()) {
+
+        }
 
         int price = calculatePrice();
-        orderSummaryTextView.setText(createOrderSummary(price, hasWhippedCream));
+        orderSummaryTextView.setText(createOrderSummary(price, hasWhippedCream, hasChocolate));
         //displayMessage(createOrderSummary(price));
-        Log.v("Main activity", "Zrzut z loga z wybraa opcja kawy  " + hasWhippedCream);
+        Log.v("Main activity", "Zrzut z loga z wybraną opcja kawy  " + hasWhippedCream);
+        Log.v("Main activity", "Zrzut z loga z wybraną opcja czekolada  " + hasChocolate);
 
     }
 
@@ -83,9 +90,10 @@ public class MainActivity extends AppCompatActivity {
     }
 
 
-    private String createOrderSummary(int price, boolean checkWhippedCream) {
+    private String createOrderSummary(int price, boolean checkWhippedCream, String checkChocolate) {
         String priceMessage = "Name: Kapitan Kunal";
         priceMessage += "\nAdd whipped cream? " + " - " + checkWhippedCream;
+        priceMessage += "\nAdd whipped cream? " + " - " + checkChocolate;
         priceMessage += "\nQuantity: " + quantity;
         priceMessage += "\nTotal " + price + " zł";
         priceMessage += "\nThank you";
