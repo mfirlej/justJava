@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent"
+    android:clickable="true"
+    android:focusableInTouchMode="true" >
 
 
     <LinearLayout
@@ -21,11 +22,23 @@
         android:scrollbarAlwaysDrawHorizontalTrack="true"
         android:scrollbars="vertical"
 
+
         tools:context="com.example.michal.justjava.MainActivity">
+
+        <EditText
+
+            android:windowSoftInputMode="stateVisible"
+            android:id="@+id/name_text_field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Name"
+            android:imeOptions="actionDone"
+            android:inputType="textMultiLine" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="9dp"
             android:text="Toppings"
             android:textAllCaps="true"
             android:textSize="16sp" />
@@ -151,57 +164,6 @@
             android:text="Submit Order"
             android:textAllCaps="true" />
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Order Summary"
-            android:textAllCaps="true"
-            android:textSize="16sp" />
-
-        <TextView
-
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16sp"
-            android:text="0 zł"
-            android:textColor="@android:color/black"
-            android:textSize="16sp" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:onClick="submitOrder"
-            android:text="Submit Order"
-            android:textAllCaps="true" />
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Order Summary"
-            android:textAllCaps="true"
-            android:textSize="16sp" />
-
-        <TextView
-
-
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16sp"
-            android:text="0 zł"
-            android:textColor="@android:color/black"
-            android:textSize="16sp" />
-
-        <Button
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:onClick="submitOrder"
-            android:text="Submit Order"
-            android:textAllCaps="true" />
 
     </LinearLayout>
 </ScrollView>
