@@ -41,7 +41,7 @@ public class MainActivity extends AppCompatActivity {
 
     public void decrementQuantity(View view) {
 
-       quantity = quantity - 1;
+        quantity = quantity - 1;
         if (quantity < 0) quantity = 0;
         //displayQuantity(quantity);
         quantityTextView.setText("" + quantity);
@@ -70,14 +70,26 @@ public class MainActivity extends AppCompatActivity {
         itemPriceTextView.setText("" + itemPrice);
         //displayItemPrice(itemPrice);
         */
-
-
         Context context = getApplicationContext();
         CharSequence text = "This feature will be added soon!";
         int duration = Toast.LENGTH_SHORT;
 
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
+    }
+
+    public void addWhippingCream(View view) {
+        CheckBox checkBoxWhippingCream = (CheckBox) findViewById(R.id.checkbox_cream);
+        if (checkBoxWhippingCream.isChecked()) itemPrice = itemPrice + 1;
+        else itemPrice = itemPrice - 1;
+        displayItemPrice(itemPrice);
+    }
+
+    public void addChocolate(View view) {
+        CheckBox checkBoxChocolate = (CheckBox) findViewById(R.id.checkbox_chocolate);
+        if (checkBoxChocolate.isChecked()) itemPrice = itemPrice + 2;
+        else itemPrice = itemPrice - 2;
+        displayItemPrice(itemPrice);
     }
 
 
@@ -133,7 +145,7 @@ public class MainActivity extends AppCompatActivity {
 
     private void displayItemPrice(int number) {
         TextView itemPriceTextView = (TextView) findViewById(R.id.itemPrice_text_view);
-        itemPriceTextView.setText("" + number);
+        itemPriceTextView.setText("" + number + " zł");
     }
 
 
