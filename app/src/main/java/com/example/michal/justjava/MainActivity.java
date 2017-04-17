@@ -5,6 +5,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.text.NumberFormat;
@@ -70,40 +71,29 @@ public class MainActivity extends AppCompatActivity {
         boolean hasWhippedCream = checkBox1.isChecked();
 
         CheckBox checkBox2 = (CheckBox) findViewById(R.id.checkbox_chocolate);
-       // boolean hasChocolate = checkBox2.isChecked();
-        String addChocolate;
-        if (checkBox2.isChecked()) {
-            addChocolate = "yes";
+        boolean hasChocolate = checkBox2.isChecked();
 
-        } else {
-            addChocolate = "no";
-        }
+        EditText textField = (EditText) findViewById(R.id.name_text_field);
+        String name = textField.getText().toString();
 
         int price = calculatePrice();
-        orderSummaryTextView.setText(createOrderSummary(price, hasWhippedCream, addChocolate));
+        orderSummaryTextView.setText(createOrderSummary(price, name, hasWhippedCream, hasChocolate));
         //displayMessage(createOrderSummary(price));
-        Log.v("Main activity", "Zrzut z loga z wybraną opcja kawy  " + hasWhippedCream);
-        Log.v("Main activity", "Zrzut z loga z wybraną opcja czekolada  " + addChocolate);
-
     }
 
     private int calculatePrice() {
         return quantity * itemPrice;
-
     }
 
-
-    private String createOrderSummary(int price, boolean checkWhippedCream, String checkChocolate) {
-        String priceMessage = "Name: Kapitan Kunal";
+    private String createOrderSummary(int price, String name, boolean checkWhippedCream, boolean checkChocolate) {
+        String priceMessage = "Name: " + name;
         priceMessage += "\nAdd whipped cream? " + " - " + checkWhippedCream;
         priceMessage += "\nAdd chocolate? " + " - " + checkChocolate;
         priceMessage += "\nQuantity: " + quantity;
         priceMessage += "\nTotal " + price + " zł";
         priceMessage += "\nThank you";
-
         return priceMessage;
     }
-
 
     /**
      * This method displays the given quantity value on the screen.

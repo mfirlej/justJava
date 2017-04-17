@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clickable="true"
-    android:focusableInTouchMode="true" >
+    android:focusableInTouchMode="true">
 
 
     <LinearLayout
@@ -27,13 +27,13 @@
 
         <EditText
 
-            android:windowSoftInputMode="stateVisible"
             android:id="@+id/name_text_field"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Name"
             android:imeOptions="actionDone"
-            android:inputType="textMultiLine" />
+            android:inputType="text"
+            android:windowSoftInputMode="stateVisible" />
 
         <TextView
             android:layout_width="wrap_content"
