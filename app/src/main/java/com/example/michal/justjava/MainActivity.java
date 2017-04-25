@@ -77,8 +77,8 @@ public class MainActivity extends AppCompatActivity {
         Toast toast = Toast.makeText(context, text, duration);
         toast.show();
     }
-
-    public void addWhippingCream(View view) {
+    
+    public void addWhippingCream() {
         CheckBox checkBoxWhippingCream = (CheckBox) findViewById(R.id.checkbox_cream);
         if (checkBoxWhippingCream.isChecked()) itemPrice = itemPrice + 1;
         else itemPrice = itemPrice - 1;
