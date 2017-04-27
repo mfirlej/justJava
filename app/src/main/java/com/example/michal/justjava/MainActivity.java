@@ -78,6 +78,10 @@ public class MainActivity extends AppCompatActivity {
         toast.show();
     }
 
+    /**
+     * kod napisany przeze mnie do liczenia ceny kawy w zaleznosci od wyboru dodatku
+     */
+/*
     public void addWhippingCream(View view) {
         CheckBox checkBoxWhippingCream = (CheckBox) findViewById(R.id.checkbox_cream);
         if (checkBoxWhippingCream.isChecked()) itemPrice = itemPrice + 1;
@@ -91,7 +95,7 @@ public class MainActivity extends AppCompatActivity {
         else itemPrice = itemPrice - 2;
         displayItemPrice(itemPrice);
     }
-
+*/
 
     /**
      * This method is called when the order button is clicked.
@@ -107,13 +111,21 @@ public class MainActivity extends AppCompatActivity {
         EditText textField = (EditText) findViewById(R.id.name_text_field);
         String name = textField.getText().toString();
 
-        int price = calculatePrice();
+        int price = calculatePrice(hasWhippedCream, hasChocolate);
         orderSummaryTextView.setText(createOrderSummary(price, name, hasWhippedCream, hasChocolate));
         //displayMessage(createOrderSummary(price));
     }
 
-    private int calculatePrice() {
-        return quantity * itemPrice;
+    private int calculatePrice(boolean whippedCream, boolean chocolate) {
+        int basePrice = 5;
+
+        if (whippedCream) {
+            basePrice =basePrice +1;
+        }
+        if (chocolate) {
+            itemPrice = itemPrice +2;
+        }
+        return quantity * basePrice;
     }
 
     private String createOrderSummary(int price, String name, boolean checkWhippedCream, boolean checkChocolate) {
