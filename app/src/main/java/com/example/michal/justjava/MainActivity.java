@@ -1,8 +1,8 @@
 package com.example.michal.justjava;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.EditText;
@@ -20,21 +20,24 @@ import butterknife.ButterKnife;
  */
 public class MainActivity extends AppCompatActivity {
 
-    int quantity = 0;
-    int itemPrice = 5;
-
+    int quantity = 1;
+    int itemPrice = 0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
     }
+
 
     public void incrementQuantity(View view) {
 
         quantity = quantity + 1;
+        if (quantity > 100) {
+            quantity = 100;
+            Toast.makeText(this, "Maximum order 100 cups of coffee.", Toast.LENGTH_SHORT).show();
+        }
         //displayQuantity(quantity);
         quantityTextView.setText("" + quantity);
     }
@@ -42,64 +45,71 @@ public class MainActivity extends AppCompatActivity {
     public void decrementQuantity(View view) {
 
         quantity = quantity - 1;
-        if (quantity < 0) quantity = 0;
+        if (quantity < 1) {
+            quantity = 1;
+
+            /**
+             * wyglad przykładowego tosta
+             *
+             * Context context = getApplicationContext();
+             CharSequence text = "Order minimum 1 cup of coffee.";
+             int duration = Toast.LENGTH_SHORT;
+             Toast toast = Toast.makeText(context,text, duration);
+             toast.show();
+             *
+             */
+
+            Toast.makeText(this, "Order minumum 1 cup of coffe", Toast.LENGTH_SHORT).show();
+        }
         //displayQuantity(quantity);
         quantityTextView.setText("" + quantity);
+
     }
 
     public void incrementItemPrice(View view) {
 
-       /* itemPrice = itemPrice + 1;
+        itemPrice = itemPrice + 1;
         itemPriceTextView.setText("" + itemPrice);
-        // displayItemPrice(itemPrice);
-        */
-
-        Context context = getApplicationContext();
-        CharSequence text = "This feature will be added soon!";
-        int duration = Toast.LENGTH_SHORT;
-
-        Toast toast = Toast.makeText(context, text, duration);
-        toast.show();
+        displayItemPrice(itemPrice);
     }
 
     public void decrementItemPrice(View view) {
+        // int itemPrice = 0;
 
-
-       /* itemPrice = itemPrice - 1;
+        itemPrice = itemPrice - 1;
         if (itemPrice <= 0) itemPrice = 0;
-        itemPriceTextView.setText("" + itemPrice);
-        //displayItemPrice(itemPrice);
-        */
-        Context context = getApplicationContext();
-        CharSequence text = "This feature will be added soon!";
-        int duration = Toast.LENGTH_SHORT;
-
-        Toast toast = Toast.makeText(context, text, duration);
-        toast.show();
-    }
-
-    /**
-     * kod napisany przeze mnie do liczenia ceny kawy w zaleznosci od wyboru dodatku
-     */
-/*
-    public void addWhippingCream(View view) {
-        CheckBox checkBoxWhippingCream = (CheckBox) findViewById(R.id.checkbox_cream);
-        if (checkBoxWhippingCream.isChecked()) itemPrice = itemPrice + 1;
-        else itemPrice = itemPrice - 1;
+        //itemPriceTextView.setText("" + itemPrice);
         displayItemPrice(itemPrice);
     }
-
-    public void addChocolate(View view) {
-        CheckBox checkBoxChocolate = (CheckBox) findViewById(R.id.checkbox_chocolate);
-        if (checkBoxChocolate.isChecked()) itemPrice = itemPrice + 2;
-        else itemPrice = itemPrice - 2;
-        displayItemPrice(itemPrice);
-    }
-*/
 
     /**
      * This method is called when the order button is clicked.
      */
+
+    public void whippedCreamToast(View view) {
+
+        CheckBox checkBox1 = (CheckBox) findViewById(R.id.checkbox_cream);
+        boolean hasWhippedCream = checkBox1.isChecked();
+        if (hasWhippedCream) {
+            Toast.makeText(this, "Price of " + quantity + " coffee increased by " + quantity * 1 + " zł.", Toast.LENGTH_SHORT).show();
+            /**
+             * można dodać nowe pole txt które wyświetli aktualną cenę kawy z dodatkami lub bez
+             * do tego drugi pole txt w którm wpiszemy cenę samej kawy
+             *displayItemPrice(itemPrice + 1);
+             **/
+        }
+    }
+
+    public void chocolateToast(View view) {
+
+        CheckBox checkBox = (CheckBox) findViewById(R.id.checkbox_chocolate);
+        boolean hasChocolate = checkBox.isChecked();
+
+        if (hasChocolate) {
+            Toast.makeText(this, "Price of " + quantity + " coffee increased by " + quantity * 2 + " zł.", Toast.LENGTH_SHORT).show();
+        }
+    }
+
     public void submitOrder(View view) {
 
         CheckBox checkBox1 = (CheckBox) findViewById(R.id.checkbox_cream);
@@ -111,21 +121,19 @@ public class MainActivity extends AppCompatActivity {
         EditText textField = (EditText) findViewById(R.id.name_text_field);
         String name = textField.getText().toString();
 
-        int price = calculatePrice(hasWhippedCream, hasChocolate);
+        int price = calculatePrice(hasWhippedCream, hasChocolate, itemPrice);
         orderSummaryTextView.setText(createOrderSummary(price, name, hasWhippedCream, hasChocolate));
         //displayMessage(createOrderSummary(price));
+
     }
 
-    private int calculatePrice(boolean whippedCream, boolean chocolate) {
-        int basePrice = 5;
+    private int calculatePrice(boolean hasWhippedCream, boolean hasChocolate, int itemPrice) {
 
-        if (whippedCream) {
-            basePrice =basePrice +1;
-        }
-        if (chocolate) {
-            itemPrice = itemPrice +2;
-        }
-        return quantity * basePrice;
+
+        if (hasWhippedCream) itemPrice = itemPrice + 1;
+        if (hasChocolate) itemPrice += +2;
+        Log.v(String.valueOf(itemPrice), "Aktualna wartosc itemPrice");
+        return quantity * itemPrice;
     }
 
     private String createOrderSummary(int price, String name, boolean checkWhippedCream, boolean checkChocolate) {
@@ -137,8 +145,6 @@ public class MainActivity extends AppCompatActivity {
         priceMessage += "\nThank you";
         return priceMessage;
     }
-
-    //pusty komentartz
 
     /**
      * This method displays the given quantity value on the screen.
@@ -162,7 +168,6 @@ public class MainActivity extends AppCompatActivity {
         itemPriceTextView.setText("" + number + " zł");
     }
 
-
     /**
      * This method displays the given price on the screen.
      */
@@ -176,17 +181,10 @@ public class MainActivity extends AppCompatActivity {
      */
     @BindView(R.id.order_summary_text_view)
     TextView orderSummaryTextView;
-
-
-
 /*
-
     private void displayMessage(String message) {
         TextView orderSummaryTextView = (TextView) findViewById(R.id.price_text_view);
         orderSummaryTextView.setVisibility(message);
     }
-
     */
-
-
 }

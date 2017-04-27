@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:clickable="true"
-    android:fillViewport="true">
+    android:fillViewport="true"
+    android:focusableInTouchMode="true">
 
 
     <LinearLayout
@@ -14,10 +15,8 @@
         android:background="#8277"
         android:isScrollContainer="true"
         android:orientation="vertical"
-        android:paddingBottom="16dp"
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
-
         android:paddingTop="16dp"
         android:scrollbarAlwaysDrawHorizontalTrack="true"
         android:scrollbars="vertical"
@@ -49,7 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-
+            android:onClick="whippedCreamToast"
             android:paddingLeft="24dp"
             android:text="Wipping cream"
             android:textSize="16sp" />
@@ -59,7 +58,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-
+            android:onClick="chocolateToast"
             android:paddingLeft="24dp"
             android:text="Chocolate"
             android:textSize="16sp" />
@@ -90,7 +89,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
-                android:text="0"
+                android:text="1"
                 android:textColor="@android:color/black"
                 android:textSize="16sp" />
 
@@ -101,6 +100,7 @@
                 android:onClick="incrementQuantity"
                 android:text="+" />
 
+
         </LinearLayout>
 
 
@@ -108,7 +108,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
-            android:text="price per one Coffee"
+            android:text="price per one Coffee without toppings"
             android:textAllCaps="true" />
 
         <LinearLayout
@@ -128,7 +128,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
-                android:text="5zł"
+                android:text="0 zł"
                 android:textColor="@android:color/black"
                 android:textSize="16sp" />
 
