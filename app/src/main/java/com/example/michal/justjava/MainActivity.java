@@ -1,6 +1,5 @@
 package com.example.michal.justjava;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -24,18 +23,21 @@ public class MainActivity extends AppCompatActivity {
     int quantity = 1;
     int itemPrice = 0;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         ButterKnife.bind(this);
-
     }
+
 
     public void incrementQuantity(View view) {
 
         quantity = quantity + 1;
+        if (quantity > 100) {
+            quantity = 100;
+            Toast.makeText(this, "Maximum order 100 cups of coffee.", Toast.LENGTH_SHORT).show();
+        }
         //displayQuantity(quantity);
         quantityTextView.setText("" + quantity);
     }
@@ -43,9 +45,25 @@ public class MainActivity extends AppCompatActivity {
     public void decrementQuantity(View view) {
 
         quantity = quantity - 1;
-        if (quantity < 1) quantity = 1;
+        if (quantity < 1) {
+            quantity = 1;
+
+            /**
+             * wyglad przykładowego tosta
+             *
+             * Context context = getApplicationContext();
+             CharSequence text = "Order minimum 1 cup of coffee.";
+             int duration = Toast.LENGTH_SHORT;
+             Toast toast = Toast.makeText(context,text, duration);
+             toast.show();
+             *
+             */
+
+            Toast.makeText(this, "Order minumum 1 cup of coffe", Toast.LENGTH_SHORT).show();
+        }
         //displayQuantity(quantity);
         quantityTextView.setText("" + quantity);
+
     }
 
     public void incrementItemPrice(View view) {
@@ -53,15 +71,6 @@ public class MainActivity extends AppCompatActivity {
         itemPrice = itemPrice + 1;
         itemPriceTextView.setText("" + itemPrice);
         displayItemPrice(itemPrice);
-
-
-
-        /*Context context = getApplicationContext();
-        CharSequence text = "This feature will be added soon!";
-        int duration = Toast.LENGTH_SHORT;
-
-        Toast toast = Toast.makeText(context, text, duration);
-        toast.show();*/
     }
 
     public void decrementItemPrice(View view) {
@@ -71,16 +80,7 @@ public class MainActivity extends AppCompatActivity {
         if (itemPrice <= 0) itemPrice = 0;
         //itemPriceTextView.setText("" + itemPrice);
         displayItemPrice(itemPrice);
-
-
-       /* Context context = getApplicationContext();
-        CharSequence text = "This feature will be added soon!";
-        int duration = Toast.LENGTH_SHORT;
-
-        Toast toast = Toast.makeText(context, text, duration);
-        toast.show();*/
     }
-
 
     /**
      * This method is called when the order button is clicked.
@@ -91,12 +91,7 @@ public class MainActivity extends AppCompatActivity {
         CheckBox checkBox1 = (CheckBox) findViewById(R.id.checkbox_cream);
         boolean hasWhippedCream = checkBox1.isChecked();
         if (hasWhippedCream) {
-            Context context = getApplicationContext();
-            CharSequence text = "Price of " + quantity + " coffee increased by " + quantity * 1 + " zł.";
-            int duration = Toast.LENGTH_SHORT;
-
-            Toast toast = Toast.makeText(context, text, duration);
-            toast.show();
+            Toast.makeText(this, "Price of " + quantity + " coffee increased by " + quantity * 1 + " zł.", Toast.LENGTH_SHORT).show();
             /**
              * można dodać nowe pole txt które wyświetli aktualną cenę kawy z dodatkami lub bez
              * do tego drugi pole txt w którm wpiszemy cenę samej kawy
@@ -111,12 +106,7 @@ public class MainActivity extends AppCompatActivity {
         boolean hasChocolate = checkBox.isChecked();
 
         if (hasChocolate) {
-            Context context = getApplicationContext();
-            CharSequence text = "Price of " + quantity + " coffee increased by " + quantity * 2 + " zł.";
-            int duration = Toast.LENGTH_SHORT;
-
-            Toast toast = Toast.makeText(context, text, duration);
-            toast.show();
+            Toast.makeText(this, "Price of " + quantity + " coffee increased by " + quantity * 2 + " zł.", Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -144,18 +134,6 @@ public class MainActivity extends AppCompatActivity {
         if (hasChocolate) itemPrice += +2;
         Log.v(String.valueOf(itemPrice), "Aktualna wartosc itemPrice");
         return quantity * itemPrice;
-
-
-
-        /*int basePrice = 5;
-
-        if (hasWhippedCream) basePrice = basePrice + 1;
-        if (hasChocolate) basePrice = basePrice + 2;
-
-
-        return quantity * basePrice;*/
-
-
     }
 
     private String createOrderSummary(int price, String name, boolean checkWhippedCream, boolean checkChocolate) {
@@ -190,7 +168,6 @@ public class MainActivity extends AppCompatActivity {
         itemPriceTextView.setText("" + number + " zł");
     }
 
-
     /**
      * This method displays the given price on the screen.
      */
@@ -204,17 +181,10 @@ public class MainActivity extends AppCompatActivity {
      */
     @BindView(R.id.order_summary_text_view)
     TextView orderSummaryTextView;
-
-
-
 /*
-
     private void displayMessage(String message) {
         TextView orderSummaryTextView = (TextView) findViewById(R.id.price_text_view);
         orderSummaryTextView.setVisibility(message);
     }
-
     */
-
-
 }
