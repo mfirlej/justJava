@@ -138,6 +138,8 @@ public class MainActivity extends AppCompatActivity {
         return priceMessage;
     }
 
+    //pusty komentartz
+
     /**
      * This method displays the given quantity value on the screen.
      */
