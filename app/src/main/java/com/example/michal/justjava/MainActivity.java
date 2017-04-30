@@ -1,5 +1,7 @@
 package com.example.michal.justjava;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -9,7 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import java.text.NumberFormat;
+
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -21,7 +23,7 @@ import butterknife.ButterKnife;
 public class MainActivity extends AppCompatActivity {
 
     int quantity = 1;
-    int itemPrice = 0;
+    int itemPrice = 1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +32,6 @@ public class MainActivity extends AppCompatActivity {
         ButterKnife.bind(this);
     }
 
-
     public void incrementQuantity(View view) {
 
         quantity = quantity + 1;
@@ -38,7 +39,6 @@ public class MainActivity extends AppCompatActivity {
             quantity = 100;
             Toast.makeText(this, "Maximum order 100 cups of coffee.", Toast.LENGTH_SHORT).show();
         }
-        //displayQuantity(quantity);
         quantityTextView.setText("" + quantity);
     }
 
@@ -61,7 +61,6 @@ public class MainActivity extends AppCompatActivity {
 
             Toast.makeText(this, "Order minumum 1 cup of coffe", Toast.LENGTH_SHORT).show();
         }
-        //displayQuantity(quantity);
         quantityTextView.setText("" + quantity);
 
     }
@@ -74,11 +73,13 @@ public class MainActivity extends AppCompatActivity {
     }
 
     public void decrementItemPrice(View view) {
-        // int itemPrice = 0;
 
         itemPrice = itemPrice - 1;
-        if (itemPrice <= 0) itemPrice = 0;
-        //itemPriceTextView.setText("" + itemPrice);
+        if (itemPrice < 1) {itemPrice = 1;
+
+            Toast.makeText(this,"No.. you can't take free coffee", Toast.LENGTH_SHORT).show();
+
+        }
         displayItemPrice(itemPrice);
     }
 
@@ -110,7 +111,8 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    public void submitOrder(View view) {
+
+  public void submitOrder(View view) {
 
         CheckBox checkBox1 = (CheckBox) findViewById(R.id.checkbox_cream);
         boolean hasWhippedCream = checkBox1.isChecked();
@@ -122,10 +124,17 @@ public class MainActivity extends AppCompatActivity {
         String name = textField.getText().toString();
 
         int price = calculatePrice(hasWhippedCream, hasChocolate, itemPrice);
-        orderSummaryTextView.setText(createOrderSummary(price, name, hasWhippedCream, hasChocolate));
-        //displayMessage(createOrderSummary(price));
+      String priceMessage = createOrderSummary(price, name, hasWhippedCream, hasChocolate);
 
-    }
+      Intent intent = new Intent(Intent.ACTION_SENDTO);
+      intent.setType("*/*");
+      intent.setData(Uri.parse("mailto:"));
+      intent.putExtra(Intent.EXTRA_SUBJECT, "JustJava order for " + name);
+      intent.putExtra(Intent.EXTRA_TEXT,priceMessage );
+      if (intent.resolveActivity(getPackageManager()) != null) {
+          startActivity(intent);
+      }
+   }
 
     private int calculatePrice(boolean hasWhippedCream, boolean hasChocolate, int itemPrice) {
 
@@ -153,12 +162,6 @@ public class MainActivity extends AppCompatActivity {
     @BindView(R.id.quantity_text_view)
     TextView quantityTextView;
 
-    /*
-    private void displayQuantity(int number) {
-        TextView quantityTextView = (TextView) findViewById(R.id.quantity_text_view);
-        quantityTextView.setText("" + number);
-    }*/
-
     @BindView(R.id.itemPrice_text_view)
     TextView itemPriceTextView;
 
@@ -167,24 +170,4 @@ public class MainActivity extends AppCompatActivity {
         TextView itemPriceTextView = (TextView) findViewById(R.id.itemPrice_text_view);
         itemPriceTextView.setText("" + number + " zł");
     }
-
-    /**
-     * This method displays the given price on the screen.
-     */
-    private void displayTotalPrice(int number) {
-        TextView priceTextView = (TextView) findViewById(R.id.order_summary_text_view);
-        priceTextView.setText(NumberFormat.getCurrencyInstance().format(number));
-    }
-
-    /**
-     * This method displays the given text on the screen.
-     */
-    @BindView(R.id.order_summary_text_view)
-    TextView orderSummaryTextView;
-/*
-    private void displayMessage(String message) {
-        TextView orderSummaryTextView = (TextView) findViewById(R.id.price_text_view);
-        orderSummaryTextView.setVisibility(message);
-    }
-    */
 }

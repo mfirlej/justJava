@@ -128,7 +128,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="8dp"
                 android:layout_marginRight="8dp"
-                android:text="0 zł"
+                android:text="1 zł"
                 android:textColor="@android:color/black"
                 android:textSize="16sp" />
 
@@ -139,24 +139,6 @@
                 android:text="+" />
         </LinearLayout>
 
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16dp"
-            android:text="Order Summary"
-            android:textAllCaps="true"
-            android:textSize="16sp" />
-
-        <TextView
-
-            android:id="@+id/order_summary_text_view"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="16sp"
-            android:text="0 zł"
-            android:textColor="@android:color/black"
-            android:textSize="16sp" />
 
         <Button
             android:layout_width="wrap_content"
